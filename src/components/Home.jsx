@@ -4,6 +4,8 @@ import CompanyComponent from "../pages/CompanyComponent";
 import axios from "axios";
 import AdminComponent from "../pages/AdminComponent";
 import UserComponent from "../pages/UserComponent";
+import ProductSearch from "../pages/product/ProductSearch";
+import ProductDetail from "../pages/product/ProductDetail";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -69,11 +71,6 @@ const Home = () => {
                     alert("백엔드에서 로그아웃을 처리하는데 문제가 발생했습니다.");
                 }
             )
-        return (
-            <div>
-
-            </div>
-        )
     }
     return (
         <div>
@@ -90,6 +87,15 @@ const Home = () => {
                 <div>
                     <button onClick={() => navigate("/login")}>로그인</button>
                     <button onClick={() => navigate("/")}>회원가입</button>
+
+                    <hr/>
+
+                    <h2>🛒 상품 검색</h2>
+                    <ProductSearch/>
+                    <hr/>
+
+                    <h2>🔍 상품 상세 조회</h2>
+                    <ProductDetail/>
                 </div>}
         </div>
     )
