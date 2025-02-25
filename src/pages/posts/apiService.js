@@ -1,6 +1,16 @@
 // axios. 작성했던 기능을 모아서 설정한 다음 각 jsx 파일로 전달
 
 // 스프링부트 실행 포트 restcontroller 에서 requestMapping에 작성한 api를 그대로 작성
+
+/* 데이터를 백엔드에서 가지고 왔을 때 왜 res.data 로 작성하는가?
+res.data 에서 res 라는 명칭은 response 라고 작성해도 되고
+abc, xyz, abc123 ... 원하는 변수이름으로 작성해도 됨
+왜냐하면 백엔드에서 작성되어있는 데이터를 담아서 가져오는 변수 이름일 뿐
+백엔드 주소에서 담아온 데이터를 변수이름에서 가져와 사용할 때
+변수이름.data 라는 명칭을 붙여줘야함
+자바스크립트에서 변수이름에 들어있는 데이터를 확인할 때 .data 라는 명칭을 사용하기 때문
+*/
+
 import axios from "axios";
 
 const API_POST_URL = "http://localhost:8080/api/posts";
@@ -16,10 +26,17 @@ const apiService = {
             axios
                 // URL 기능을 관리하기 위해서 따로 빼서 사용
                 .get(API_POST_URL) // 대문자로 쓰는 것 상수, 변하면 안됨
-                .then(
-                    (res) => callback(res.data)
+                .then( // 백엔드 연결 성공
+                    (res) => {
+                        if (res.data > 0) { // 데이터가 1개 이상 존재하기 때문에 데이터 보여주기
+                            callback(res.data)
+                        } else { // 데이터를 가져올 수 있는 데이터가 없기 때문에 데이터 없음 표시
+                            alert("백엔드에서 가져올 수 있는 데이터가 없습니다.")
+                        }
+                    }
+                    // (res) => callback(res.data)
                 )
-                .catch(
+                .catch( // 백엔드 연결 실패
                     err => {
                         alert("게시물을 불러오는 중 오류가 발생했습니다.");
                         errCallback("게시판 목록 보기 실패");
@@ -52,14 +69,15 @@ const apiService = {
         axios
             .get(`${API_POST_URL}/search?keyword=${encodeURIComponent(keyword)}`)
             .then(response => setPost(response.data))
-            .catch((err) => {setErr(err)
-            console.log("postSearch 에러 : " + err)
+            .catch((err) => {
+                setErr(err)
+                console.log("postSearch 에러 : " + err)
                 setPost([]);
                 alert("백엔드에서 데이터를 불러올 수 없습니다.")
             });
     },
 
-    suggestedPosts: function (keyword, callback, errorCallback){
+    suggestedPosts: function (keyword, callback, errorCallback) {
         axios
             .get(`${API_POST_URL}/search?keyword=${encodeURIComponent(keyword)}`)
             .then(
@@ -79,6 +97,54 @@ const apiService = {
                 }
             )
     },
+
+    updatePost: function (postId, postData, callback, errorCallback) {
+        axios.put(`${API_POST_URL}/${postId}`, postData, {
+            headers: {"Content-Type": "application/json"}
+        })
+            .then( // 백엔드와 연결에 성공했습니다.
+                (res) => {
+                    alert(callback);
+                    if (res.data && res.data.updatedAt) {
+                        alert(callback); // 게시물이 수정되었다 표기
+                    } else {
+                        alert("변경된 내용이 없습니다.");
+                    }
+                }
+            )
+            .catch(// 백엔드와 연결을 실패했습니다.
+                (err) => {
+                    alert(errorCallback);
+                }
+            );
+    },
+
+    deletePost:
+    // PostDetail 에서 전달받은 매개변수 자리
+    // 매개변수는 전달받은 값을 기능 내에서 사용할 수 있도록 설정한 이름일 뿐이기 때문에
+    // postId 가 아니라 abc, apple, xyz 와 같은 이름으로 작성 후 {} 내부에서 작성한 변수이름을 활용
+    // function (PostDetail 에서 apiService 를 호출하여 deletePost 기능을 실행했을 때 가져온 postId,
+    //                       PostDetail 에서 apiService 를 호출하여 deletePost 기능을 실행했을 때 가져온 callback,
+    //                       PostDetail 에서 apiService 를 호출하여 deletePost 기능을 실행했을 때 가져온 errorCallback) {
+    // function (postId, callback, errorCallback) {
+        function (postId, callback, errorCallback) {
+            axios.delete(`${API_POST_URL}/${postId}`)
+                .then(
+                    (response) => {
+                        // callback(response.data)
+                        // alert("게시물이 삭제되었습니다.");
+                        alert(callback);
+                    })
+                .catch(
+                    // 백엔드에서 삭제가 불가능 할 때
+                    // 알람으로
+                    // 백엔드에서 컨트롤러 연결에 실패하였습니다.
+                    error => {
+                        // alert("백엔드에서 컨트롤러 연결에 실패하였습니다.");
+                        alert(errorCallback);
+                        console.error("프론트엔드에서 확인할 에러 메시지 : ", error);
+                    });
+        },
 
 }
 
