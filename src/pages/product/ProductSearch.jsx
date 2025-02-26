@@ -3,6 +3,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import './ProductSearch.css';
+import apiProductService from "./apiProductService";
 
 const ProductSearch = () => {
     // 검색 변수 이름
@@ -13,6 +14,7 @@ const ProductSearch = () => {
     const [sugs, setSugs] = useState([]); // suggestions -> sugs 추천 검색어를 제안하는 리스트
     // 빈 값일 경우 제안 X 빈 값이 아닐 경우 제안
     const [show, setShow] = useState([]);
+    const[err, setErr] = useState([]);
 
     const handleSug = (sugs) => {
         setKeyword(sugs);
@@ -24,6 +26,8 @@ const ProductSearch = () => {
             alert("검색어를 입력하세요.");
             return;
         }
+        apiProductService.getSearchProduct(keyword, setProducts)
+        /*
         axios
             .get(`http://localhost:8080/api/products/search?keyword=${keyword}`)
             .then((res) => {
@@ -34,6 +38,7 @@ const ProductSearch = () => {
                 setProducts([]); // 기존에 검색된 데이터가 있다면 지워버리기
                 alert("백엔드에서 데이터를 불러올 수 없습니다.")
             })
+         */
     }
 
     const handleChange = (e) => {
@@ -45,6 +50,8 @@ const ProductSearch = () => {
 
         // value 값이 존재한다면 추천 검색어 제공
         if (value) {
+        apiProductService.getSuggestions(value, setSugs, setShow)
+            /*
             axios
                 .get(`http://localhost:8080/api/products/search?keyword=${value}`)
                 .then(
@@ -61,7 +68,7 @@ const ProductSearch = () => {
                             :
                             [];
                             
-                         */
+                         * /
                         const 제안리스트 = res.data?.map(p => p.productName) || [];
                         setSugs(제안리스트); // 백엔드에서 가져온 제안리스트에서 이름만 sug 변수이름으로 전달
                         setShow(true); // 제안 리스트를 sugs 변수 이름으로 전달했고, 전달한 값이 존재하면 추천 검색어 보여주기 설정
@@ -73,10 +80,13 @@ const ProductSearch = () => {
                         setSugs([]); // 새로운 input 값이 들어왔을 때 문제가 발생하면 기존에 추천한 리스트를 모두 비우기
                     }
                 )
+            /*
         } else { // 추천할 검색어가 없다면 한마디로 input이 비어있다면!
             setSugs([]); // 추천 검색어 리스트 비우기
             setShow(false);
+             */
         }
+
     }
     return (
         <div className="productsearch-container">

@@ -28,10 +28,12 @@ const apiService = {
                 .get(API_POST_URL) // 대문자로 쓰는 것 상수, 변하면 안됨
                 .then( // 백엔드 연결 성공
                     (res) => {
-                        if (res.data > 0) { // 데이터가 1개 이상 존재하기 때문에 데이터 보여주기
+                        console.log("res.data", res.data);
+                        if (res.data.length > 0) { //  데이터가 1개이상 존재하기 때문에 데이터 보여주기
+                            console.log("res.data", res.data);
                             callback(res.data)
-                        } else { // 데이터를 가져올 수 있는 데이터가 없기 때문에 데이터 없음 표시
-                            alert("백엔드에서 가져올 수 있는 데이터가 없습니다.")
+                        } else {            // 데이터를 가져올 수 있는 데이터가 없기 때문에 데이터 없음 표시
+                            alert("백엔드에서 가져올 수 있는 데이터가 없습니다.");
                         }
                     }
                     // (res) => callback(res.data)
