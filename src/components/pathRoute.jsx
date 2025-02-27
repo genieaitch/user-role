@@ -23,6 +23,10 @@ import NavBar from "./NavBar";
 import ProductList from "../pages/product/ProductList";
 import ProductDetail from "../pages/product/ProductDetail";
 import ProductSearch from "../pages/product/ProductSearch";
+import ClothesList from "../pages/clothes/ClothesList";
+import ClothesDetail from "../pages/clothes/ClothesDetail";
+import AddClothes from "../pages/clothes/AddClothes";
+import EditClothes from "../pages/clothes/EditClothes";
 
 function PathRoute () {
     const[user, setUser] = useState(null);
@@ -51,6 +55,10 @@ function PathRoute () {
                 <Route path="/posts/create" element={<InsertPost />} />
                 {/* PostDetail 에서 수정 버튼 내부 to 속성에 작성한 경로 값 설정*/}
                 <Route path="/posts/edit/:postId" element={<UpdatePost />} />
+                <Route path="/clothes" element={<ClothesList />} />
+                <Route path="/clothes/:clothesId" element={<ClothesDetail />} />
+                <Route path="/clothes/add" element={<AddClothes />} />
+                <Route path="/clothes/edit/:clothesId" element={<EditClothes />} />
 
                 {/* Product 경로 설정 */}
                 <Route path="/products" element={<ProductList />} />

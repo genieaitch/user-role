@@ -45,21 +45,25 @@ const NavBar = ({user}) => {
                             </ul>
                         </li>
 
+                        <li className="nav-item">
+                            <Link to="/clothes" className="nav-link" aria-current="page">옷 가게</Link>
+                        </li>
+
                         {user?.role === 1 && (
                             <li className="nav-item">
                                 <Link to="/admin" className="nav-link">관리자 페이지 </Link>
                             </li>
-                            )}
+                        )}
                         {user?.role === 2 && (
                             <li className="nav-item">
                                 <Link to="/company" className="nav-link">회사 페이지</Link>
                             </li>
-                            )}
+                        )}
                         {user?.role === 3 && (
                             <li className="nav-item">
                                 <Link to="/user" className="nav-link">유저 페이지</Link>
                             </li>
-                            )}
+                        )}
 
                         {/* 로그인 로그아웃 버튼 */}
                         {
@@ -76,7 +80,7 @@ const NavBar = ({user}) => {
 
                     </ul>
                     <form className="d-flex" role="search">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                         <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
