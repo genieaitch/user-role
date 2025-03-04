@@ -27,7 +27,7 @@ const ClothesList = () => {
                                  alt="Fancy Product"/>
                             <div className="card-body p-4 text-center">
                                 <h5 className="fw-bolder">
-                                    <a href={`/clothes.html?id=${c.cid}`} className="text-decoration-none">{c.cname}</a>
+                                    <a href={`/clothes/${c.cid}`} className="text-decoration-none">{c.cname}</a>
                                 </h5>
                                 {c.cprice.toLocaleString()}원
                             </div>
