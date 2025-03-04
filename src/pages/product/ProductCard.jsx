@@ -1,5 +1,5 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
-import apiProductService from "../pages/product/apiProductService";
+import apiProductService from "./apiProductService";
 
 const ProductCard = () => {
     const {productId} = useParams();

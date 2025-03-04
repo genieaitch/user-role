@@ -58,25 +58,28 @@ const apiClothesService = {
                     }
                 )
         },
-/*
+
         insertClothes :
-        function (){
+        function (clothesId, content, callback, errorCallback){
             axios
-                .post(`${API_CLOTHES_URL}/add`)
+                .post(`${API_CLOTHES_URL}`, content, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }})
                 .then(
                     (res) => {
                         console.log("백엔드 연결 성공", res.data)
+                        alert(callback)
                     }
                 )
                 .catch(
                     (err) => {
                         alert("백엔드에서 데이터를 가져오지 못했습니다.");
-                        (err)
                         console.log("getAllClothes Error : ", err)
                     }
                 )
         },
-*/
+
         updateClothes: //putMapping 에 id 경로 추가
         function (clothesId, updateContent, callback, errorCallback){
             axios

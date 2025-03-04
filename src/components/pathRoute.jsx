@@ -27,7 +27,7 @@ import ClothesList from "../pages/clothes/ClothesList";
 import ClothesDetail from "../pages/clothes/ClothesDetail";
 import AddClothes from "../pages/clothes/AddClothes";
 import EditClothes from "../pages/clothes/EditClothes";
-import ProductCard from "./ProductCard";
+import ProductCard from "../pages/product/ProductCard";
 
 function PathRoute () {
     const[user, setUser] = useState(null);
