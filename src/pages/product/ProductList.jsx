@@ -9,7 +9,7 @@ const ProductList = () => {
         apiProductService.getProducts(setProducts);
     }, []);
     return (
-        <div className="-container">
+        <div className="productlist-container">
             {
                 products.map(
                     (p) => (
@@ -18,7 +18,7 @@ const ProductList = () => {
                             <p>가격 : {p.productPrice}원</p>
                             <p>수량 : {p.productStock}개</p>
                             <p>{p.productDescription}</p>
-                            <Link to={`/produccts/${p.productId}`}>이동</Link>
+                            <Link to={`/products/${p.productId}`}>이동</Link>
                         </div>
                     )
                 )

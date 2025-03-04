@@ -14,13 +14,13 @@ const ClothesDetail = () => {
     const handleDelete = () => {
         if(window.confirm("정말 삭제 하시겠습니까?")) {
             apiClothesService.deleteClothes(clothesId, "삭제 성공", "삭제실패")
-            navigate("/clothes")
+            navigate("/clothesList")
         }
     }
 
     return (
         <div className="clothesDetail-container">
-            <h2>{clothes?.cname}</h2>
+            <h3><strong>{clothes?.cname}</strong> 상세보기</h3>
             <p>브랜드 : {clothes?.cbrand}</p>
             <p>카테고리 : {clothes?.ccategory}</p>
             <p>색상 : {clothes?.ccolor}</p>
@@ -34,6 +34,7 @@ const ClothesDetail = () => {
             </Link>
 
             <button onClick={handleDelete}>삭제</button>
+            <Link to={`/clothesList`}><button>돌아가기</button></Link>
         </div>
     )
 };

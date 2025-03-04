@@ -1,37 +1,51 @@
 import {useEffect, useState} from "react";
 import apiClothesService from "./apiClothesService";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const ClothesList = () => {
     const [clothes, setClothes] = useState([]);
     const [err, setErr] = useState(null);
+    const navigator = useNavigate();
 
     useEffect(() => {
         apiClothesService.getAllClothes(setClothes, setErr)
     }, []);
 
+    const handleDelete = (cid) => {
+        apiClothesService.deleteClothes(cid, "삭제성공", "삭제실패");
+        navigator("/clothesList");
+    }
+
     return (
-        <div className="clothesList-container">
-            <h2>옷 가게</h2>
-
-            <Link to={`/clothes/add`}>
-                <button>옷 추가하기</button>
-            </Link>
-
-            {
-                    clothes.map(
-                    (c) => (
-                    <div key={c.cid}>
-                        <h3>{c.cname}</h3>
-                        <p>카테고리 : {c.ccategory}</p>
-                        <p>브랜드 : {c.cbrand}</p>
-                        <p>가격 : {c.cprice}원</p>
-                        <p>수량 : {c.cstock}</p>
-                        <Link to={`/clothes/${c.cid}`}>이동하기</Link>
+        <div className="row mt-5">
+            {clothes.map(
+                (c) => (
+                    /*<div key={c.cid}>*/
+                    <div className="col-3 mb-5" key={c.cid}>
+                        <div className="card h-100">
+                            <img className="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                 alt="Fancy Product"/>
+                            <div className="card-body p-4 text-center">
+                                <h5 className="fw-bolder">
+                                    <a href={`/clothes.html?id=${c.cid}`} className="text-decoration-none">{c.cname}</a>
+                                </h5>
+                                {c.cprice.toLocaleString()}원
+                            </div>
+                            <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div className="text-center">
+                                    <button className="btn btn-outline-dark mt-auto"
+                                    onClick={()=>handleDelete(c.cid)}
+                                    >
+                                        삭제
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    //</div>
 
-                    )
-                    )
+                )
+            )
             }
         </div>
     )

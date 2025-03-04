@@ -27,6 +27,7 @@ import ClothesList from "../pages/clothes/ClothesList";
 import ClothesDetail from "../pages/clothes/ClothesDetail";
 import AddClothes from "../pages/clothes/AddClothes";
 import EditClothes from "../pages/clothes/EditClothes";
+import ProductCard from "./ProductCard";
 
 function PathRoute () {
     const[user, setUser] = useState(null);
@@ -55,7 +56,7 @@ function PathRoute () {
                 <Route path="/posts/create" element={<InsertPost />} />
                 {/* PostDetail 에서 수정 버튼 내부 to 속성에 작성한 경로 값 설정*/}
                 <Route path="/posts/edit/:postId" element={<UpdatePost />} />
-                <Route path="/clothes" element={<ClothesList />} />
+                <Route path="/clothesList" element={<ClothesList />} />
                 <Route path="/clothes/:clothesId" element={<ClothesDetail />} />
                 <Route path="/clothes/add" element={<AddClothes />} />
                 <Route path="/clothes/edit/:clothesId" element={<EditClothes />} />
@@ -64,7 +65,7 @@ function PathRoute () {
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/products/:productId" element={<ProductDetail />} />
                 <Route path="/products/search" element={<ProductSearch />} />
-                <Route path="/products/:prdouctId" element={<ProductDetail />} />
+                <Route path="/products/delete/:productId" element={<ProductCard />} />
 
                 <Route path="/login" element={<Login setUser={setUser}  />} />
                 {/* 1. 관리자만 접근 가능 Components */}

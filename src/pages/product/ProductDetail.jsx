@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import apiProductService from "./apiProductService";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const ProductDetail = () => {
     // http://localhost:3000/products/5 5 숫자를 가져와서 사용
@@ -60,9 +60,12 @@ const ProductDetail = () => {
                                 Add to cart
                             </button>
                         </div>
+                        <button className="btn btn-outline-dark flex-shrink-0" type="button">
+                            <Link to={`/products/delete/${productId}`} className="bi-cart-fill me-1">삭제</Link>
+                        </button>
+                    </div>
                     </div>
                 </div>
-            </div>
         </section>
     );
 /*

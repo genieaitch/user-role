@@ -96,7 +96,7 @@ const apiProductService = {
     getSearchProduct:
         function (keyword, setProducts) {
             axios
-                .get(`http://localhost:8080/api/products/search?keyword=${keyword}`)
+                .get(`${API_PRODUCT_URL}/search?keyword=${keyword}`)
                 .then((res) => {
                     setProducts(res.data);
                 })
@@ -106,6 +106,24 @@ const apiProductService = {
                     alert("백엔드에서 데이터를 불러올 수 없습니다.")
                 })
         },
+
+    deleteProduct:
+    function (productId, callback, errorCallback){
+        axios
+            .delete(`${API_PRODUCT_URL}/${productId}`)
+            .then(
+                res => {
+                    alert(callback);
+                    console.log("deleteProduct 정상 작동");
+                }
+            )
+            .catch(
+                err => {
+                    alert(errorCallback);
+                    console.error("deleteProduct 에러 발생");
+                }
+            )
+    },
     /*
     불러올기능명칭:
     function (){
